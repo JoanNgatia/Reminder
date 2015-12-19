@@ -1,0 +1,30 @@
+{
+  "name": "kumbusha",
+  "version": "1.0.0",
+  "description": "organise and update you on your tasks",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/andela-jngatia/Reminder.git"
+  },
+  "dependencies": {
+    "express" : "~4.5.1",
+    "mongoose" : "~3.8.0",
+    "body-parser" : "~1.4.2",
+    "method-override" : "~2.0.2"        
+  },
+  "keywords": [
+    "Remind",
+    "Organize"
+  ],
+  "author": "Joan Ngatia",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/andela-jngatia/Reminder/issues"
+  },
+  "homepage": "https://github.com/andela-jngatia/Reminder#readme"
+
+}
