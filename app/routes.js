@@ -1,6 +1,6 @@
  // app/routes.js
 
-// grab the nerd model we just created
+// grab the remind model we just created
 var Remind = require('./models/remind');
 
     module.exports = function(app) {
@@ -10,16 +10,16 @@ var Remind = require('./models/remind');
         // authentication routes
 
         // sample api route
-        app.get('/api/nerds', function(req, res) {
-            // use mongoose to get all nerds in the database
-            Nerd.find(function(err, reminds) {
+        app.get('/api/reminds', function(req, res) {
+            // use mongoose to get all tasks in the database
+            Remind.find(function(err, reminds) {
 
                 // if there is an error retrieving, send the error. 
                                 // nothing after res.send(err) will execute
                 if (err)
                     res.send(err);
 
-                res.json(reminds); // return all nerds in JSON format
+                res.json(reminds); // return all tasks in JSON format
             });
         });
 
