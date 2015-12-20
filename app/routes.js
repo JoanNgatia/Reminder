@@ -1,7 +1,7 @@
  // app/routes.js
 
-// grab the remind model we just created
-var Remind = require('./models/remind');
+// grab the task model we just created
+var Task = require('./models/task');
 
     module.exports = function(app) {
 
@@ -10,20 +10,28 @@ var Remind = require('./models/remind');
         // authentication routes
 
         // sample api route
-        app.get('/api/reminds', function(req, res) {
+        app.get('/api/tasks', function(req, res) {
             // use mongoose to get all tasks in the database
-            Remind.find(function(err, reminds) {
+            Task.find(function(err, tasks) {
 
                 // if there is an error retrieving, send the error. 
                                 // nothing after res.send(err) will execute
                 if (err)
                     res.send(err);
 
-                res.json(reminds); // return all tasks in JSON format
+                res.json(tasks); // return all tasks in JSON format
             });
         });
 
         // route to handle creating goes here (app.post)
+        app.post('/api/tasks', function(req, res){
+            Task.find(function(err, tasks){
+                if(err)
+                    res.send(err);
+
+                res.json({message: 'Task created'});
+            });
+        });
         // route to handle delete goes here (app.delete)
 
         // frontend routes =========================================================

@@ -37,40 +37,65 @@ router.get('/', function(req, res){
 router.route('/tasks')
      .post(function(req, res) {
         
-        var remind = new Remind();      
-        remind.name = req.body.name;  
+        var task = new Task();      
+        task.name = req.body.name;  
 
         // save the task and check for errors
-        remind.save(function(err) {
+        task.save(function(err) {
             if (err)
                 res.send(err);
 
             res.json({ message: 'Task created!' });
         });
-        
-    });
+     });
 
 app.use('/api', router);
-app.get('/api/:type/*/*?*', router);
+//app.get('/api/:type/*/*?*', router);
 // connect to our mongoDB database 
-// (uncomment after you enter in your own credentials in config/db.js)
-mongoose.connect('mongodb://localhost/kumbusha'); 
+var Schema = mongoose.Schema;
+mongoose.connect('mongodb://localhost:27017/kumbusha'); 
+var db = mongoose.connection
+db.on('error', function callback () {
+  console.log("Connection error");
+});
 
-var Remind = require('./app/models/remind');
+db.once('open', function callback () {
+  console.log("Mongo working!");
+});
+
+var Task = require('./app/models/task');
+var task = new Task(Schema, mongoose);
+task.createSchemas();
+task.insertTask();
+
+app.get('/ping', function(req, res){
+    res.send({ping:'Lets do this!'});
+});
+
+app.get('/ping/:id', function(req, res){
+    res.send({ping:'Hi!Your current tasks include' +req.params.id});
+});
+
+app.get('/task/read', function(req, res){
+    var res = task.getTask({name: 'Read'}, res);
+});
 
 
 // parse application/vnd.api+json as json
-//app.use(bodyParser.json({ type: 'application/vnd.api+json' })); 
+app.use(bodyParser.json({ type: 'application/vnd.api+json' })); 
 
 
 // override with the X-HTTP-Method-Override header in the request. simulate DELETE/PUT
-//app.use(methodOverride('X-HTTP-Method-Override')); 
+app.use(methodOverride('X-HTTP-Method-Override')); 
 
 // set the static files location /public/img will be /img for users
-//app.use(express.static(__dirname + '/public')); 
+app.use(express.static(__dirname + '/public')); 
+app.get('/', function(req, res){
+    res.render('index', {title:'Home'});
+});
 
 // routes ==================================================
-//require('./app/routes')(app); // configure our routes
+require('./app/routes')(app); // configure our routes
 
 // start app ===============================================
 // startup our app at http://localhost:8080
