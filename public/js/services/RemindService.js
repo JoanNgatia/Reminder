@@ -1,9 +1,9 @@
-angular.module('RemindService', []).factory('Remind', ['$http', function($http) {
+angular.module('RemindService', []).task('Remind', ['$http', function($http) {
 
     return {
         // call to get all tasks
         get : function() {
-            return $http.get('/api/reminds');
+            return $http.get('/api/tasks');
         },
 
 
@@ -19,4 +19,4 @@ angular.module('RemindService', []).factory('Remind', ['$http', function($http) 
         }
     }       
 
-}]);
+}]));

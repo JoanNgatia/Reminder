@@ -51,7 +51,7 @@ var Task = function(Schema,mongoose) {
     this.getTask = function(query,res) {
 
         this.Task.find(query,function(error,output) {
-            res.json(output);
+            //res.json(output);
         });
     }
 }

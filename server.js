@@ -53,6 +53,9 @@ app.use('/api', router);
 //app.get('/api/:type/*/*?*', router);
 // connect to our mongoDB database 
 var Schema = mongoose.Schema;
+var ObjectId = Schema.ObjectId;
+var Task = require('./app/models/task');
+
 mongoose.connect('mongodb://localhost:27017/kumbusha'); 
 var db = mongoose.connection
 db.on('error', function callback () {
@@ -63,10 +66,10 @@ db.once('open', function callback () {
   console.log("Mongo working!");
 });
 
-var Task = require('./app/models/task');
 var task = new Task(Schema, mongoose);
 task.createSchemas();
 task.insertTask();
+task.getTask({name: 'read'});
 
 app.get('/ping', function(req, res){
     res.send({ping:'Lets do this!'});
@@ -77,7 +80,7 @@ app.get('/ping/:id', function(req, res){
 });
 
 app.get('/task/read', function(req, res){
-    var res = task.getTask({name: 'Read'}, res);
+    var resp = task.getTask({name: 'Read'}, res);
 });
 
 
