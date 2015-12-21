@@ -9,7 +9,7 @@
 
     <!-- CSS -->
     <link rel="stylesheet" href="libs/bootstrap/dist/css/bootstrap.min.css">
-    <link rel="stylesheet" href="public/css/style.css"> 
+    <link rel="stylesheet" href="css/style.css"> 
 
     <!-- JS -->
     <script src="libs/angular/angular.min.js"></script>
@@ -25,28 +25,37 @@
 </head>
 <body ng-app="sampleApp" ng-controller="myAppController">
 <div class="container">
+<!-- HEADER -->
+<nav class="navbar navbar-inverse">
+    <div class="navbar-header">
+        <a class="navbar-brand" href="/">Kumbuka</a>
+    </div>
+</nav>
+<div class = "intro">
+    <p>Input a task to do below</p>
+</div>
+<form novalidate class="simple-form">
+        Task:
+        <input type="text" ng-model="task.name" class="form-control" />
+        <br /> Description:
+        <input type="text" ng-model="task.description" class="form-control"/>
+        <br /> Priority:
+        <label class="radio-inline"><input type="radio" ng-model="task.priority" value="high" name="optradio" />High </label>
+        <label class="radio-inline"><input type="radio" ng-model="task.priority" value="medium" name="optradio" />Medium </label>
+        <label class="radio-inline"><input type="radio" ng-model="task.priority" value="low" name="optradio" />Low </label>
+        <br/>
+        <input type="button" ng-click="create(task)" value="Create" class="btn btn-primary" />
+        <input type="button" ng-click="delete(task)" value="Delete" class="btn btn-danger" />
+        <input type="submit" ng-click="update(task)" value="Save"  class= "btn btn-success"/>
+</form>
 
-    <!-- HEADER -->
-    <nav class="navbar navbar-inverse">
-        <div class="navbar-header">
-            <a class="navbar-brand" href="/">Kumbuka</a>
-        </div>
-    </nav>
-    <form novalidate class="simple-form">
-    Task: <input type="text" ng-model="task.name" /><br />
-    Description: <input type="text" ng-model="task.description" /><br />
-    Priority: <input type="radio" ng-model="task.priority" value="high" />High
-    <input type="radio" ng-model="task.priority" value="medium" />Medium
-    <input type="radio" ng-model="task.priority" value="low" />Low <br/>
-    <input type="button" ng-click="create(task)" value="Create"/>
-    <input type="button" ng-click="delete(task)" value="Delete" />
-    <input type="submit" ng-click="update(task)" value="Save" />
-    </form>
-    <div class = "jumbotron">
+<div class="jumbotron">
+        <p>You're current tasks include:</p>
         <ul>
         <li ng-repeat="task in tasks" ng-click="select(task)"> 
-            {{task.name}}
-            {{task.description}}
+            {{task.name}},
+            {{task.description}},
+            {{task.priority}}
         </li>
         </ul>
     </div>
