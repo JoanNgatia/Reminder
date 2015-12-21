@@ -34,13 +34,22 @@
     </nav>
     <form novalidate class="simple-form">
     Task: <input type="text" ng-model="task.name" /><br />
-    Description: <input type="email" ng-model="task.description" /><br />
+    Description: <input type="text" ng-model="task.description" /><br />
     Priority: <input type="radio" ng-model="task.priority" value="high" />High
     <input type="radio" ng-model="task.priority" value="medium" />Medium
     <input type="radio" ng-model="task.priority" value="low" />Low <br/>
-    <input type="button" ng-click="reset()" value="Reset" />
+    <input type="button" ng-click="create(task)" value="Create"/>
+    <input type="button" ng-click="delete(task)" value="Delete" />
     <input type="submit" ng-click="update(task)" value="Save" />
     </form>
+    <div>
+        <ul>
+        <li ng-repeat="task in tasks" ng-click="select(task)"> 
+            {{task.name}}
+            {{task.description}}
+        </li>
+        </ul>
+    </div>
 
 </body>
 </html>
