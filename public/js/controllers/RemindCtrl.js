@@ -5,7 +5,7 @@ myApp.controller('myAppController', ['$scope', '$http', function($scope, $http) 
     refresh();
 
     function refresh() {
-        $http.get('http://localhost:8080/api/tasks').success(function(res) {
+        $http.get('/api/tasks').success(function(res) {
             $scope.tasks = res;
             $scope.task = $scope.tasks[0];
         });
@@ -13,7 +13,7 @@ myApp.controller('myAppController', ['$scope', '$http', function($scope, $http) 
 
     $scope.init = function() {
 
-        $http.get('http://localhost:8080/api/tasks').then(function(result) {
+        $http.get('/api/tasks').then(function(result) {
             $scope.tasks = result.data;
         });
     }
@@ -34,7 +34,7 @@ myApp.controller('myAppController', ['$scope', '$http', function($scope, $http) 
     }
 
     $scope.delete = function(task) {
-        $http.delete('api/tasks', task).success(function(result) {
+        $http.delete('/api/tasks', task).success(function(result) {
 
         })
     }
