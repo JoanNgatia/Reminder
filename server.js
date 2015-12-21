@@ -52,12 +52,51 @@ router.route('/tasks')
 
     //get all tasks created at GET http://localhost:8080/api/tasks
     .get(function(req, res){
-      task.find(function(err, bears) {
+      Task.find(function(err, tasks) {
         if(err)
           res.send(err);
         res.json(tasks);
       });
     });
+
+//routes to get, update or delete a task
+router.route('/tasks/:task_id')
+  //get a task with a certain Id
+  .get(function(req, res){
+    Task.findById(req.params.task_id, function(err, task){
+      if(err)
+        res.send(err);
+      res.json(task);
+    });
+  })
+
+  //update task with certin id
+  .put(function(req, res){
+    Task.findById(req.params.task_id, function(err, task){
+      if(err)
+        res.send(err);
+      task.name = req.body.name;
+
+      task.save(function(err){
+        if (err)
+          res.send(err);
+
+        res.json({message: 'Task updated!'});
+      });
+    });
+  })
+
+  //delete task with this ID
+  .delete(function(req, res){
+    Task.remove({
+      _id: req.params.task_id
+    }, function(err, task){
+      if(err)
+        res.send(err);
+
+        res.json({message: 'Succcessfully deleted task!'})
+    });
+  });
 
 
 app.use('/api', router);
@@ -91,7 +130,7 @@ app.use('/api/:id', function(req, res){
 });
 
 app.use('/task/read', function(req, res){
-    var resp = task.getTask({name: 'Read'}, res);
+    var resp = Task.getTask({name: 'Read'}, res);
 });
 
 

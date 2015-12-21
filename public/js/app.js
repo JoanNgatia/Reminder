@@ -1,1 +1,1 @@
-angular.module('sampleApp', ['ngRoute', 'appRoutes', 'MainCtrl', 'RemindCtrl', 'RemindService']);
+angular.module('sampleApp', ['ngRoute', 'appRoutes', 'RemindCtrl', 'RemindService']);

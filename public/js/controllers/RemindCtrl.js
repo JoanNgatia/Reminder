@@ -12,7 +12,7 @@ myApp.controller('myAppController',['$scope', '$http', function ($scope, $http, 
 
     $scope.init = function() { 
 
-        $http.get('http://localhost:3000/task/read').then(function(result) { $scope.task = result.data; });
+        $http.get('http://localhost:8080/task/read').then(function(result) { $scope.task = result.data; });
     } 
 
     $scope.init(); 

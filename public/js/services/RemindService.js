@@ -7,8 +7,6 @@ angular.module('RemindService', [])
             return $http.get('/api/tasks');
         },
 
-
-                // these will work when more API routes are defined on the Node side of things
         // call to POST and create a new task
         create : function(RemindData) {
             return $http.post('/api/tasks', RemindData);
@@ -20,4 +18,4 @@ angular.module('RemindService', [])
         }
     }       
 
-}]));
+}]);
