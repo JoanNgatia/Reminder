@@ -32,8 +32,16 @@ var Task = require('./models/task');
                 res.json({message: 'Task created'});
             });
         });
-        // route to handle delete goes here (app.delete)
 
+        // route to handle delete goes here (app.delete)
+        app.delete('/api/tasks', function(err, tasks){
+            Task.delete(function(err, tasks){
+                if(err)
+                    res.send(err);
+                res.json({message: 'Task deleted'});
+            });
+        });
+        
         // frontend routes =========================================================
         // route to handle all angular requests
         app.get('*', function(req, res) {

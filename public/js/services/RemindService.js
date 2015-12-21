@@ -1,4 +1,5 @@
-angular.module('RemindService', []).task('Remind', ['$http', function($http) {
+angular.module('RemindService', [])
+.factory('Task', ['$http', function($http) {
 
     return {
         // call to get all tasks

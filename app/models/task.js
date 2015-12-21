@@ -1,59 +1,74 @@
 // app/models/task.js
 // grab the mongoose module
-//var mongoose = require('mongoose');
-//var Schema = mongoose.Schema;
+var mongoose = require('mongoose');
+var Schema = mongoose.Schema;
 
-// define our nerd model
+// define our task model
 // module.exports allows us to pass this to other files when it is called
-//var TaskSchema = new Schema({
- //   name: String
-//})
-//module.exports = mongoose.model('Task', TaskSchema);
+var TaskSchema = new Schema({
+    name: String,
+    priority: String, 
+    description: String
+});
+var Task = mongoose.model('Task', TaskSchema);
 
-var Task = function(Schema,mongoose) {
+var read = new Task({
+    name: 'read',
+    priority: 'high',
+    description: 'The secret lives of Baba Segis wives'
+});
 
-    this.Schema = Schema;
-    this.mongoose = mongoose;
-    this.Item = null;
+var call = new Task({
+    name: 'call',
+    priority: 'medium',
+    description: 'Call mum'
+}); 
 
-    this.createSchemas = function() {
 
-        TaskSchema = new this.Schema({
-            name: String,
-            priority: String, 
-            description: String
+// var Task = function(Schema,mongoose) {
 
-        });
+//     this.Schema = Schema;
+//     this.mongoose = mongoose;
+//     this.Item = null;
 
-        this.Task = mongoose.model('Task',TaskSchema);
-    }
+//     this.createSchemas = function() {
 
-    this.insertTask = function() {
+//         TaskSchema = new this.Schema({
+//             name: String,
+//             priority: String, 
+//             description: String
 
-        var read = new this.Task({
-            name: 'read',
-            priority: 'high',
-            description: 'The secret lives of Baba Segis wives'
+//         });
 
-        }); 
+//        // this.Task = mongoose.model('Task',TaskSchema);
+//     }
 
-        var call = new this.Task({
-            name: 'call',
-            priority: 'medium',
-            description: 'Call mum'
+//     this.insertTask = function() {
 
-        }); 
+//         var read = new this.Task({
+//             name: 'read',
+//             priority: 'high',
+//             description: 'The secret lives of Baba Segis wives'
 
-        read.save();
-        call.save();
-    }
+//         }); 
 
-    this.getTask = function(query,res) {
+//         var call = new this.Task({
+//             name: 'call',
+//             priority: 'medium',
+//             description: 'Call mum'
 
-        this.Task.find(query,function(error,output) {
-            //res.json(output);
-        });
-    }
-}
+//         }); 
 
-module.exports = Task;
+//         read.save();
+//         call.save();
+//     }
+
+//     this.getTask = function(query,res) {
+
+//         this.Task.find(query,function(error,output) {
+//             //res.json(output);
+//         });
+//     }
+// }
+
+module.exports = mongoose.model('Task', TaskSchema);

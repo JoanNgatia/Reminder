@@ -6,7 +6,7 @@ var app            = express();
 var bodyParser     = require('body-parser');
 var methodOverride = require('method-override');
 var mongoose = require('mongoose')
-
+var Task = require('./app/models/task')
 // configuration ===========================================
 
 //allow to get data from POST method    
@@ -33,21 +33,32 @@ router.get('/', function(req, res){
     res.json({message: 'hooray!Welcome to Kumbusha!'});
 });
 
-//route to ad a new task and save it
+//route to add a new task and save it
 router.route('/tasks')
-     .post(function(req, res) {
+    //create a task at POST http://localhost:8080/api/tasks
+    .post(function(req, res) {
         
-        var task = new Task();      
-        task.name = req.body.name;  
+      var task = new Task();      
+      task.name = req.body.name;  
 
-        // save the task and check for errors
-        task.save(function(err) {
-            if (err)
-                res.send(err);
+      // save the task and check for errors
+      task.save(function(err) {
+          if (err)
+            res.send(err);
 
-            res.json({ message: 'Task created!' });
-        });
-     });
+          res.json({ message: 'Task created!' });
+      });
+    })
+
+    //get all tasks created at GET http://localhost:8080/api/tasks
+    .get(function(req, res){
+      task.find(function(err, bears) {
+        if(err)
+          res.send(err);
+        res.json(tasks);
+      });
+    });
+
 
 app.use('/api', router);
 //app.get('/api/:type/*/*?*', router);
@@ -67,19 +78,19 @@ db.once('open', function callback () {
 });
 
 var task = new Task(Schema, mongoose);
-task.createSchemas();
-task.insertTask();
-task.getTask({name: 'read'});
+//task.createSchemas();
+//task.insertTask();
+//task.getTask({name: 'read'});
 
-app.get('/ping', function(req, res){
+app.use('/api', function(req, res){
     res.send({ping:'Lets do this!'});
 });
 
-app.get('/ping/:id', function(req, res){
+app.use('/api/:id', function(req, res){
     res.send({ping:'Hi!Your current tasks include' +req.params.id});
 });
 
-app.get('/task/read', function(req, res){
+app.use('/task/read', function(req, res){
     var resp = task.getTask({name: 'Read'}, res);
 });
 
