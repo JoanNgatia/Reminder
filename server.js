@@ -32,12 +32,10 @@ app.use('/api', router);
 //var Schema = mongoose.Schema;
 //var ObjectId = Schema.ObjectId;
 var Task = require('./app/models/task');
-if(env === 'development') {
-  mongoose.connect('mongodb://localhost:27017/kumbusha');
-} else {
-  mongoose.connect("mongodb://Joan:NAILPOLISH18@ds033915.mongolab.com:33915/kumbusha")
-}
-
+// if(env === 'development') {
+//   mongoose.connect('mongodb://localhost:27017/kumbusha');
+// } else {
+mongoose.connect("mongodb://joan_ngatia:NAILPOLISH18@ds033915.mongolab.com:33915/kumbusha");
 var db = mongoose.connection
 db.on('error', function callback() {
     console.log("Connection error");
