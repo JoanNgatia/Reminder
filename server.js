@@ -8,6 +8,8 @@ var methodOverride = require('method-override');
 var mongoose = require('mongoose')
 var Task = require('./app/models/task')
     // configuration ===========================================
+var env = process.env.NODE_ENV = process.env.NODE_ENV || 'development';
+
 
 //allow to get data from POST method    
 app.use(bodyParser.urlencoded({
@@ -30,8 +32,12 @@ app.use('/api', router);
 //var Schema = mongoose.Schema;
 //var ObjectId = Schema.ObjectId;
 var Task = require('./app/models/task');
+if(env === 'development') {
+  mongoose.connect('mongodb://localhost:27017/kumbusha');
+} else {
+  mongoose.connect("mongodb://Joan:NAILPOLISH18@ds033915.mongolab.com:33915/kumbusha")
+}
 
-mongoose.connect('mongodb://localhost:27017/kumbusha');
 var db = mongoose.connection
 db.on('error', function callback() {
     console.log("Connection error");
@@ -47,6 +53,8 @@ router.route('/tasks')
 
         var task = new Task();
         task.name = req.body.name;
+        task.description = req.body.description;
+        task.priority = req.body.priority;
 
         // save the task and check for errors
         task.save(function(err) {
@@ -85,6 +93,8 @@ router.route('/tasks/:task_id')
         if (err)
             res.send(err);
         task.name = req.body.name;
+        task.description = req.body.description;
+        task.priority = req.body.priority;
 
         task.save(function(err) {
             if (err)
@@ -140,6 +150,7 @@ require('./app/routes')(app); // configure our routes
 
 // start app ===============================================
 // startup our app at http://localhost:8080
+var port = process.env.PORT || 8080;
 app.listen(port);
 
 // shoutout to the user                     
