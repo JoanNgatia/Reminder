@@ -23,7 +23,7 @@
 
 
 </head>
-<body ng-app="RemindApp" ng-controller="ReminderController">
+<body ng-app="sampleApp" ng-controller="myAppController">
 <div class="container">
 
     <!-- HEADER -->
@@ -31,21 +31,16 @@
         <div class="navbar-header">
             <a class="navbar-brand" href="/">Kumbuka</a>
         </div>
-
-        <ul class="nav navbar-nav">
-            <li><a href="/tasks">Tasks</a></li>
-        </ul>
     </nav>
-
-    <!-- ANGULAR DYNAMIC CONTENT -->
-    <div ng-view = "Tasks to do">
-    </div>
-
-</div>
-<div>
-<p> Welcome to Kumbusha!!</p>
-<p> We will help you keep upto date on all the tasks you have to complete </p>
-</div>
+    <form novalidate class="simple-form">
+    Task: <input type="text" ng-model="task.name" /><br />
+    Description: <input type="email" ng-model="task.description" /><br />
+    Priority: <input type="radio" ng-model="task.priority" value="high" />High
+    <input type="radio" ng-model="task.priority" value="medium" />Medium
+    <input type="radio" ng-model="task.priority" value="low" />Low <br/>
+    <input type="button" ng-click="reset()" value="Reset" />
+    <input type="submit" ng-click="update(task)" value="Save" />
+    </form>
 
 </body>
 </html>

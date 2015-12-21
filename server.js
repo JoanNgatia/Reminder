@@ -100,7 +100,7 @@ router.route('/tasks/:task_id')
 
 
 app.use('/api', router);
-//app.get('/api/:type/*/*?*', router);
+
 // connect to our mongoDB database 
 var Schema = mongoose.Schema;
 var ObjectId = Schema.ObjectId;
@@ -117,9 +117,7 @@ db.once('open', function callback () {
 });
 
 var task = new Task(Schema, mongoose);
-//task.createSchemas();
-//task.insertTask();
-//task.getTask({name: 'read'});
+
 
 app.use('/api', function(req, res){
     res.send({ping:'Lets do this!'});

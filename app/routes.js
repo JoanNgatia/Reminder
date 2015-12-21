@@ -15,11 +15,10 @@ var Task = require('./models/task');
             Task.find(function(err, tasks) {
 
                 // if there is an error retrieving, send the error. 
-                                // nothing after res.send(err) will execute
                 if (err)
                     res.send(err);
 
-                res.json(tasks); // return all tasks in JSON format
+                res.json(tasks); 
             });
         });
 

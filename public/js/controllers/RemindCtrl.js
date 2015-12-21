@@ -1,20 +1,20 @@
-// angular.module('RemindCtrl', []).controller('RemindController', function($scope) {
+var myApp =  angular.module('RemindCtrl',[]); 
 
-//     $scope.tagline = 'Nothing beats a good reminder app!';
+myApp.controller('myAppController',['$scope', '$http', function ($scope, $http) { 
 
-// });
-
-var myApp =  angular.module('myApp',[]); 
-
-myApp.controller('myAppController',['$scope', '$http', function ($scope, $http, myAppService) { 
-
-    $scope.task = [];
+    $scope.task = {};
 
     $scope.init = function() { 
 
-        $http.get('http://localhost:8080/task/read').then(function(result) { $scope.task = result.data; });
+        $http.get('http://localhost:8080/api/task').then(function(result) { $scope.task = result.data; });
     } 
 
     $scope.init(); 
+
+    $scope.update = function(task) {
+        $http.post('/api/task',task).success(function(result){
+            console.log (result)
+        })
+    }
 
 }]);
